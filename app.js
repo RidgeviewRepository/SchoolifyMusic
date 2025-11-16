@@ -12,6 +12,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let songs = [
         {
+            title: 'Trendsetter',
+            artist: 'Connor Price & Haviah Mighty',
+            // local asset path; place the MP3 at assets/Trendsetter.mp3 to enable playback
+            url: 'assets/Trendsetter.mp3',
+            albumArtUrl: 'https://th.bing.com/th/id/OIP.WrE03_I1KiVjeSi6TLH6lgHaHa?w=158&h=180&c=7&r=0&o=7&cb=ucfimg2&dpr=1.3&pid=1.7&rm=3&ucfimg=1'
+        },
+        {
             title: 'Blinding Lights',
             artist: 'The Weeknd',
             url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
