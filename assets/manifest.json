@@ -1,0 +1,28 @@
+{
+  "songs": [
+    {
+      "title": "Blinding Lights",
+      "artist": "The Weeknd",
+      "mp3": "assets/mp3/Blinding Lights.mp3",
+      "cover": "https://th.bing.com/th/id/OIP.CK8CD1lsD2149RhVqgQoXAHaNK?w=115&h=180&c=7&r=0&o=7&cb=ucfimg2&dpr=1.3&pid=1.7&rm=3&ucfimg=1"
+    },
+    {
+      "title": "Levitating",
+      "artist": "Dua Lipa",
+      "mp3": "assets/mp3/Levitating.mp3",
+      "cover": "https://th.bing.com/th/id/OIP.FKpRZjNNf7KGGDVdrcKWnAHaJQ?w=119&h=180&c=7&r=0&o=7&cb=ucfimg2&dpr=1.3&pid=1.7&rm=3&ucfimg=1"
+    },
+    {
+      "title": "Save Your Tears",
+      "artist": "The Weeknd",
+      "mp3": "assets/mp3/Save Your Tears.mp3",
+      "cover": "https://th.bing.com/th/id/OIP.kUPoK8aXXF7dwd3F_yjjmwHaEa?w=323&h=193&c=7&r=0&o=7&cb=ucfimg2&dpr=1.3&pid=1.7&rm=3&ucfimg=1"
+    },
+    {
+      "title": "Trendsetter",
+      "artist": "Connor Price & Haviah Mighty",
+      "mp3": "assets/mp3/Trendsetter.mp3",
+      "cover": "assets/Covers/Trendsetter.jpeg"
+    }
+  ]
+}
