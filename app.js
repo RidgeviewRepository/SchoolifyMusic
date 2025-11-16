@@ -72,9 +72,48 @@ document.addEventListener('DOMContentLoaded', function () {
             console.warn('Failed to load album art:', songs[songIndex].albumArtUrl);
             albumArt.src = 'https://via.placeholder.com/200?text=Album+Art+Unavailable';
         };
-        albumArt.src = songs[songIndex].albumArtUrl;
+
+        // attempt to resolve cover paths that may not include an extension (e.g. 'assets/Covers/Trendsetter')
+        trySetAlbumArt(songs[songIndex].albumArtUrl);
         audio.src = songs[songIndex].url;
         audio.load();
+    }
+
+    // Try common image extensions if the provided cover path has no extension.
+    function trySetAlbumArt(basePath) {
+        const placeholder = 'https://via.placeholder.com/200?text=Album+Art+Unavailable';
+        if (!basePath) {
+            albumArt.src = placeholder;
+            return;
+        }
+
+        // If the basePath already has an extension, use it directly.
+        if (/\.[a-zA-Z0-9]{2,5}$/.test(basePath)) {
+            albumArt.src = basePath;
+            return;
+        }
+
+        const exts = ['.jpg', '.png', '.webp', '.jpeg', '.gif'];
+
+        (async () => {
+            for (let ext of exts) {
+                const tryUrl = basePath + ext;
+                try {
+                    const res = await fetch(tryUrl, { method: 'HEAD' });
+                    if (res && res.ok) {
+                        const ct = res.headers.get('content-type') || '';
+                        if (ct.startsWith('image')) {
+                            albumArt.src = tryUrl;
+                            return;
+                        }
+                    }
+                } catch (e) {
+                    // ignore and try next
+                }
+            }
+            console.warn('No cover found for', basePath);
+            albumArt.src = placeholder;
+        })();
     }
 
     function playPauseSong() {
