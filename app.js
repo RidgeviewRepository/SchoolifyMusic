@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let isPlaying = false;
     let currentSongIndex = 0;
 
-    const songs = [
+    let songs = [
         {
             title: 'Blinding Lights',
             artist: 'The Weeknd',
@@ -82,6 +82,35 @@ document.addEventListener('DOMContentLoaded', function () {
         const newTime = (progressBar.value / 100) * audio.duration;
         audio.currentTime = newTime;
     });
+
+    // File upload functionality
+    const fileInput = document.getElementById('file-input');
+    const uploadBtn = document.getElementById('upload-btn');
+
+    if (uploadBtn) {
+        uploadBtn.addEventListener('click', function () {
+            fileInput.click();
+        });
+    }
+
+    if (fileInput) {
+        fileInput.addEventListener('change', function (e) {
+            const files = e.target.files;
+            for (let file of files) {
+                if (file.type.startsWith('audio/')) {
+                    const fileURL = URL.createObjectURL(file);
+                    const newSong = {
+                        title: file.name.replace(/\.[^/.]+$/, ''),
+                        artist: 'Custom Upload',
+                        url: fileURL,
+                        albumArtUrl: 'https://via.placeholder.com/200?text=Custom+Song'
+                    };
+                    songs.push(newSong);
+                }
+            }
+            fileInput.value = '';
+        });
+    }
 
     loadSong(currentSongIndex);
 });

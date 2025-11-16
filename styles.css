@@ -92,3 +92,23 @@ header h1 {
     height: 20px;
     cursor: pointer;
 }
+
+.upload-container {
+    margin-top: 20px;
+}
+
+.upload-btn {
+    background-color: #1DB954;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.upload-btn:hover {
+    background-color: #1ed760;
+}
