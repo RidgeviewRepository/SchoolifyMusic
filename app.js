@@ -36,6 +36,12 @@ document.addEventListener('DOMContentLoaded', function () {
     function loadSong(songIndex) {
         songTitle.textContent = songs[songIndex].title;
         artistName.textContent = songs[songIndex].artist;
+        // set a crossOrigin to reduce CORS issues and attach error fallback
+        try { albumArt.crossOrigin = 'anonymous'; } catch (e) {}
+        albumArt.onerror = function () {
+            console.warn('Failed to load album art:', songs[songIndex].albumArtUrl);
+            albumArt.src = 'https://via.placeholder.com/200?text=Album+Art+Unavailable';
+        };
         albumArt.src = songs[songIndex].albumArtUrl;
         audio.src = songs[songIndex].url;
         audio.load();
