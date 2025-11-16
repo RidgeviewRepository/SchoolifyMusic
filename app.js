@@ -15,19 +15,19 @@ document.addEventListener('DOMContentLoaded', function () {
             title: 'Blinding Lights',
             artist: 'The Weeknd',
             url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-            albumArtUrl: 'https://via.placeholder.com/200?text=Blinding+Lights'
+            albumArtUrl: 'https://th.bing.com/th/id/OIP.CK8CD1lsD2149RhVqgQoXAHaNK?w=115&h=180&c=7&r=0&o=7&cb=ucfimg2&dpr=1.3&pid=1.7&rm=3&ucfimg=1'
         },
         {
             title: 'Levitating',
             artist: 'Dua Lipa',
             url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
-            albumArtUrl: 'https://via.placeholder.com/200?text=Levitating'
+            albumArtUrl: 'https://th.bing.com/th/id/OIP.FKpRZjNNf7KGGDVdrcKWnAHaJQ?w=119&h=180&c=7&r=0&o=7&cb=ucfimg2&dpr=1.3&pid=1.7&rm=3&ucfimg=1'
         },
         {
             title: 'Save Your Tears',
             artist: 'The Weeknd',
             url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
-            albumArtUrl: 'https://via.placeholder.com/200?text=Save+Your+Tears'
+            albumArtUrl: 'https://th.bing.com/th/id/OIP.kUPoK8aXXF7dwd3F_yjjmwHaEa?w=323&h=193&c=7&r=0&o=7&cb=ucfimg2&dpr=1.3&pid=1.7&rm=3&ucfimg=1'
         }
     ];
 
