@@ -10,13 +10,13 @@ document.addEventListener('DOMContentLoaded', function () {
     let isPlaying = false;
     let currentSongIndex = 0;
 
+    // default playlist (used if no assets/manifest.json is present)
     let songs = [
         {
             title: 'Trendsetter',
             artist: 'Connor Price & Haviah Mighty',
-            // local asset path; place the MP3 at assets/Trendsetter.mp3 to enable playback
-            url: 'assets/Trendsetter.mp3',
-            albumArtUrl: 'https://th.bing.com/th/id/OIP.WrE03_I1KiVjeSi6TLH6lgHaHa?w=158&h=180&c=7&r=0&o=7&cb=ucfimg2&dpr=1.3&pid=1.7&rm=3&ucfimg=1'
+            url: 'assets/mp3/Trendsetter.mp3',
+            albumArtUrl: 'assets/Covers/Trendsetter'
         },
         {
             title: 'Blinding Lights',
@@ -37,6 +37,29 @@ document.addEventListener('DOMContentLoaded', function () {
             albumArtUrl: 'https://th.bing.com/th/id/OIP.kUPoK8aXXF7dwd3F_yjjmwHaEa?w=323&h=193&c=7&r=0&o=7&cb=ucfimg2&dpr=1.3&pid=1.7&rm=3&ucfimg=1'
         }
     ];
+
+    // Try to load a generated manifest (assets/manifest.json). If present, it overrides the songs list.
+    (async function tryLoadManifest() {
+        try {
+            const resp = await fetch('assets/manifest.json');
+            if (!resp.ok) return;
+            const data = await resp.json();
+            if (!data || !Array.isArray(data.songs)) return;
+            // Map manifest entries into the expected songs shape
+            songs = data.songs.map(s => ({
+                title: s.title || (s.mp3 || '').split('/').pop().replace(/\.[^/.]+$/, ''),
+                artist: s.artist || '',
+                url: s.mp3,
+                albumArtUrl: s.cover || null
+            }));
+            // reload current song if necessary
+            currentSongIndex = 0;
+            audio.src = songs[currentSongIndex].url;
+            loadSong(currentSongIndex);
+        } catch (err) {
+            console.warn('No manifest or failed to load manifest:', err);
+        }
+    })();
 
     let audio = new Audio(songs[currentSongIndex].url);
 
