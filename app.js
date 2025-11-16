@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // ...existing code...
+    // ...existing code...
+
     const searchBar = document.getElementById('search-bar');
     const appContainer = document.querySelector('.app-container');
     let filteredSongs = songs.slice();
