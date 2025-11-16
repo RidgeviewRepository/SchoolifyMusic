@@ -82,8 +82,10 @@ document.addEventListener('DOMContentLoaded', function () {
     async function initializePlayer() {
         try {
             const resp = await fetch('assets/manifest.json');
+            console.log('Manifest fetch status:', resp.status);
             if (resp.ok) {
                 const data = await resp.json();
+                console.log('Manifest data:', data);
                 if (data && Array.isArray(data.songs)) {
                     songs = data.songs.map(s => ({
                         title: s.title || (s.mp3 || '').split('/').pop().replace(/\.[^/.]+$/, ''),
@@ -96,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } catch (err) {
             console.warn('No manifest or failed to load manifest:', err);
         }
+        console.log('Songs after manifest load:', songs);
         filteredSongs = songs.slice();
         currentSongIndex = 0;
         audio = new Audio(songs[currentSongIndex].url);
@@ -103,7 +106,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function loadSong(songIndex) {
-        if (!songs[songIndex]) return;
+        if (!songs[songIndex]) {
+            console.error('No song found at index', songIndex, songs);
+            return;
+        }
+        console.log('Loading song:', songs[songIndex]);
         songTitle.textContent = songs[songIndex].title;
         artistName.textContent = songs[songIndex].artist;
         try { albumArt.crossOrigin = 'anonymous'; } catch (e) {}
