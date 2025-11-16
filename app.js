@@ -78,47 +78,46 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     ];
 
-    // Try to load a generated manifest (assets/manifest.json). If present, it overrides the songs list.
-    (async function tryLoadManifest() {
+    // Initialize player only after manifest loads
+    async function initializePlayer() {
         try {
             const resp = await fetch('assets/manifest.json');
-            if (!resp.ok) return;
-            const data = await resp.json();
-            if (!data || !Array.isArray(data.songs)) return;
-            // Map manifest entries into the expected songs shape
-            songs = data.songs.map(s => ({
-                title: s.title || (s.mp3 || '').split('/').pop().replace(/\.[^/.]+$/, ''),
-                artist: s.artist || '',
-                url: s.mp3,
-                albumArtUrl: s.cover || null
-            }));
-            // Reinitialize filteredSongs and audio
-            filteredSongs = songs.slice();
-            currentSongIndex = 0;
-            audio = new Audio(songs[currentSongIndex].url);
-            loadSong(currentSongIndex);
+            if (resp.ok) {
+                const data = await resp.json();
+                if (data && Array.isArray(data.songs)) {
+                    songs = data.songs.map(s => ({
+                        title: s.title || (s.mp3 || '').split('/').pop().replace(/\.[^/.]+$/, ''),
+                        artist: s.artist || '',
+                        url: s.mp3,
+                        albumArtUrl: s.cover || null
+                    }));
+                }
+            }
         } catch (err) {
             console.warn('No manifest or failed to load manifest:', err);
         }
-    })();
-
-    let audio = new Audio(songs[currentSongIndex].url);
+        filteredSongs = songs.slice();
+        currentSongIndex = 0;
+        audio = new Audio(songs[currentSongIndex].url);
+        loadSong(currentSongIndex);
+    }
 
     function loadSong(songIndex) {
+        if (!songs[songIndex]) return;
         songTitle.textContent = songs[songIndex].title;
         artistName.textContent = songs[songIndex].artist;
-        // set a crossOrigin to reduce CORS issues and attach error fallback
         try { albumArt.crossOrigin = 'anonymous'; } catch (e) {}
         albumArt.onerror = function () {
             console.warn('Failed to load album art:', songs[songIndex].albumArtUrl);
             albumArt.src = 'https://via.placeholder.com/200?text=Album+Art+Unavailable';
         };
-
-        // attempt to resolve cover paths that may not include an extension (e.g. 'assets/Covers/Trendsetter')
         trySetAlbumArt(songs[songIndex].albumArtUrl);
         audio.src = songs[songIndex].url;
         audio.load();
     }
+
+    // Start initialization after DOM is ready
+    initializePlayer();
 
     // Try common image extensions if the provided cover path has no extension.
     function trySetAlbumArt(basePath) {
