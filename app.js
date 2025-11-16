@@ -92,9 +92,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 url: s.mp3,
                 albumArtUrl: s.cover || null
             }));
-            // reload current song if necessary
+            // Reinitialize filteredSongs and audio
+            filteredSongs = songs.slice();
             currentSongIndex = 0;
-            audio.src = songs[currentSongIndex].url;
+            audio = new Audio(songs[currentSongIndex].url);
             loadSong(currentSongIndex);
         } catch (err) {
             console.warn('No manifest or failed to load manifest:', err);
