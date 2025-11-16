@@ -142,3 +142,62 @@ header h1 {
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
+
+/* Search Bar Styles */
+.search-bar-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#search-bar {
+    width: 300px;
+    padding: 10px 15px;
+    border-radius: 25px;
+    border: 1px solid #1DB954;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#search-bar:focus {
+    border-color: #1ed760;
+}
+
+/* Search Results Styles */
+.search-results {
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 120px;
+    background: #181818;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    width: 320px;
+    z-index: 10;
+    padding: 10px 0;
+}
+.search-result-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    font-size: 1rem;
+    border-bottom: 1px solid #222;
+    transition: background 0.2s;
+}
+.search-result-item:last-child {
+    border-bottom: none;
+}
+.search-result-item:hover {
+    background: #1DB954;
+    color: #181818;
+}
+.search-artist {
+    font-size: 0.9rem;
+    color: #aaa;
+    margin-left: 10px;
+}

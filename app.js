@@ -1,4 +1,44 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const searchBar = document.getElementById('search-bar');
+    const appContainer = document.querySelector('.app-container');
+    let filteredSongs = songs.slice();
+
+    // Create search results container
+    const resultsContainer = document.createElement('div');
+    resultsContainer.className = 'search-results';
+    appContainer.insertBefore(resultsContainer, appContainer.querySelector('.player'));
+
+    function renderSearchResults() {
+        resultsContainer.innerHTML = '';
+        if (!searchBar.value.trim()) {
+            resultsContainer.style.display = 'none';
+            return;
+        }
+        resultsContainer.style.display = 'block';
+        filteredSongs.forEach((song, idx) => {
+            const item = document.createElement('div');
+            item.className = 'search-result-item';
+            item.innerHTML = `<span>${song.title}</span> <span class="search-artist">${song.artist}</span>`;
+            item.onclick = () => {
+                currentSongIndex = songs.indexOf(song);
+                loadSong(currentSongIndex);
+                resultsContainer.style.display = 'none';
+                searchBar.value = '';
+            };
+            resultsContainer.appendChild(item);
+        });
+    }
+
+    if (searchBar) {
+        searchBar.addEventListener('input', function () {
+            const query = searchBar.value.trim().toLowerCase();
+            filteredSongs = songs.filter(song =>
+                song.title.toLowerCase().includes(query) ||
+                song.artist.toLowerCase().includes(query)
+            );
+            renderSearchResults();
+        });
+    }
     const playPauseBtn = document.getElementById('play-pause-btn');
     const nextBtn = document.getElementById('next-btn');
     const prevBtn = document.getElementById('prev-btn');
